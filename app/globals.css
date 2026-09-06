@@ -2,10 +2,428 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: light; }
+:root {
+  color-scheme: dark;
+
+  --midnight:        #0A0E1F;
+  --midnight-deep:   #05070F;
+  --midnight-soft:   #131730;
+  --midnight-veil:   #1B2040;
+
+  --parchment:       #F1E8D0;
+  --parchment-deep:  #E8DCC0;
+  --parchment-light: #F8F2DE;
+  --parchment-shade: #D6C8A3;
+
+  --ink:             #231A0E;
+  --ink-soft:        #4A3E2C;
+  --ink-faint:       #8A7B5E;
+
+  --gold:            #C9971F;
+  --gold-bright:     #E6B54D;
+  --gold-dim:        #8A6518;
+  --gold-foil:       #D9B558;
+
+  --oxblood:         #7A1D1D;
+  --verdigris:       #4D7C6A;
+  --star:            #E8D89A;
+}
 
 html, body {
-  background-color: #F7F6FC;
-  color: #1A1830;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--midnight);
+  color: var(--parchment);
+  font-family: var(--font-body), Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-feature-settings: "kern", "liga", "onum";
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--midnight-deep);
+}
+
+/* ───────── Typography utilities ───────── */
+
+.font-display { font-family: var(--font-display), Georgia, serif; }
+.font-body    { font-family: var(--font-body), Georgia, serif; }
+.font-mono    { font-family: var(--font-mono), 'Courier New', monospace; }
+
+.text-display-xl {
+  font-family: var(--font-display), serif;
+  font-weight: 400;
+  font-size: clamp(3.25rem, 8vw, 6.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+}
+
+.text-display-l {
+  font-family: var(--font-display), serif;
+  font-weight: 400;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+}
+
+.text-eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.text-romanesque {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* ───────── Constellation background ───────── */
+
+.bg-celestial {
+  background-color: var(--midnight);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(201, 151, 31, 0.08), transparent 60%),
+    radial-gradient(ellipse 80% 60% at 85% 110%, rgba(77, 124, 106, 0.06), transparent 60%),
+    radial-gradient(1.5px 1.5px at 13% 22%, rgba(232, 216, 154, 0.95), transparent 50%),
+    radial-gradient(1px 1px at 27% 11%, rgba(232, 216, 154, 0.7), transparent 50%),
+    radial-gradient(1px 1px at 38% 47%, rgba(232, 216, 154, 0.55), transparent 50%),
+    radial-gradient(2px 2px at 52% 17%, rgba(232, 216, 154, 0.85), transparent 50%),
+    radial-gradient(1px 1px at 64% 33%, rgba(232, 216, 154, 0.6), transparent 50%),
+    radial-gradient(1.5px 1.5px at 72% 68%, rgba(232, 216, 154, 0.75), transparent 50%),
+    radial-gradient(1px 1px at 83% 14%, rgba(232, 216, 154, 0.5), transparent 50%),
+    radial-gradient(1px 1px at 91% 44%, rgba(232, 216, 154, 0.6), transparent 50%),
+    radial-gradient(1px 1px at 18% 78%, rgba(232, 216, 154, 0.7), transparent 50%),
+    radial-gradient(1.5px 1.5px at 33% 88%, rgba(232, 216, 154, 0.55), transparent 50%),
+    radial-gradient(1px 1px at 47% 62%, rgba(232, 216, 154, 0.45), transparent 50%),
+    radial-gradient(1px 1px at 58% 92%, rgba(232, 216, 154, 0.6), transparent 50%),
+    radial-gradient(1px 1px at 78% 85%, rgba(232, 216, 154, 0.5), transparent 50%),
+    radial-gradient(2px 2px at 7% 55%, rgba(232, 216, 154, 0.8), transparent 50%),
+    radial-gradient(1px 1px at 44% 4%, rgba(232, 216, 154, 0.65), transparent 50%);
+  background-attachment: fixed;
+}
+
+.bg-celestial-subtle {
+  background-color: var(--midnight);
+  background-image:
+    radial-gradient(1px 1px at 15% 28%, rgba(232, 216, 154, 0.6), transparent 50%),
+    radial-gradient(1.5px 1.5px at 45% 18%, rgba(232, 216, 154, 0.7), transparent 50%),
+    radial-gradient(1px 1px at 72% 42%, rgba(232, 216, 154, 0.5), transparent 50%),
+    radial-gradient(1px 1px at 88% 72%, rgba(232, 216, 154, 0.55), transparent 50%),
+    radial-gradient(1px 1px at 25% 82%, rgba(232, 216, 154, 0.45), transparent 50%),
+    radial-gradient(1.5px 1.5px at 58% 92%, rgba(232, 216, 154, 0.6), transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Grain overlay — applied to <body> via a fixed pseudo-element */
+.grain-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ───────── Parchment document frame ───────── */
+
+.parchment {
+  background: var(--parchment);
+  color: var(--ink);
+  position: relative;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 0 0 1px var(--parchment-shade),
+    0 40px 80px -30px rgba(0, 0, 0, 0.85),
+    0 8px 24px -8px rgba(0, 0, 0, 0.4);
+}
+
+.parchment-bg {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(217, 181, 88, 0.12), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 100%, rgba(138, 62, 24, 0.06), transparent 70%),
+    linear-gradient(180deg, var(--parchment-light) 0%, var(--parchment) 40%, var(--parchment-deep) 100%);
+}
+
+.parchment-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* Double-rule engraved border on a parchment card */
+.engraved-border {
+  padding: 2px;
+  background: linear-gradient(135deg, var(--ink-soft) 0%, var(--ink) 50%, var(--ink-soft) 100%);
+}
+
+.engraved-border > * {
+  border: 1px solid var(--parchment-shade);
+  outline: 1px solid var(--ink);
+  outline-offset: -5px;
+}
+
+/* ───────── Gold and ornament ───────── */
+
+.text-gold          { color: var(--gold); }
+.text-gold-bright   { color: var(--gold-bright); }
+.bg-gold            { background: var(--gold); }
+.border-gold        { border-color: var(--gold); }
+
+.gold-foil {
+  background: linear-gradient(135deg, #8A6518 0%, #E6B54D 25%, #FFF3B0 45%, #E6B54D 55%, #8A6518 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.divider-ornate {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ink-soft);
+}
+.divider-ornate::before,
+.divider-ornate::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ink-soft), transparent);
+}
+
+.divider-celestial {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--gold-dim);
+}
+.divider-celestial::before,
+.divider-celestial::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+}
+
+/* Gold circular wax-stamp seal */
+.wax-seal {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #F3D07A, #C9971F 40%, #7A5211 90%);
+  box-shadow:
+    inset 0 2px 6px rgba(255, 243, 176, 0.5),
+    inset 0 -6px 10px rgba(0, 0, 0, 0.35),
+    0 6px 16px -4px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--midnight-deep);
+  font-family: var(--font-display), serif;
+  position: relative;
+}
+.wax-seal::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(10, 14, 31, 0.4);
+}
+
+/* ───────── Motion ───────── */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 1; }
+}
+
+@keyframes slow-drift {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+@keyframes orbit-draw {
+  from { stroke-dashoffset: var(--orbit-c); }
+  to   { stroke-dashoffset: calc(var(--orbit-c) * (1 - var(--orbit-pct))); }
+}
+
+.rise   { animation: rise 1100ms cubic-bezier(0.2, 0.65, 0.2, 1) both; }
+.fade-in{ animation: fade 1400ms ease-out both; }
+
+.rise-1 { animation-delay: 80ms; }
+.rise-2 { animation-delay: 200ms; }
+.rise-3 { animation-delay: 340ms; }
+.rise-4 { animation-delay: 480ms; }
+.rise-5 { animation-delay: 620ms; }
+.rise-6 { animation-delay: 760ms; }
+.rise-7 { animation-delay: 900ms; }
+
+.twinkle-slow { animation: twinkle 4.2s ease-in-out infinite; }
+.drift        { animation: slow-drift 8s ease-in-out infinite; }
+
+/* ───────── Techy observability utilities ───────── */
+
+/* Faint engineering grid — pairs with .bg-celestial for mission-control feel */
+.bg-gridlines {
+  background-image:
+    linear-gradient(rgba(201, 151, 31, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 151, 31, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+}
+
+/* Pulsing status dot — use .status-live / .status-idle / .status-down */
+.status-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  vertical-align: middle;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.25);
+}
+.status-live { background: var(--verdigris); box-shadow: 0 0 0 1px rgba(0,0,0,0.25), 0 0 8px rgba(77,124,106,0.9); animation: pulse-live 2.4s ease-in-out infinite; }
+.status-idle { background: var(--gold-dim); }
+.status-down { background: var(--oxblood); }
+
+@keyframes pulse-live {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.25); }
+}
+
+/* Blinking terminal caret */
+.caret::after {
+  content: '▌';
+  display: inline-block;
+  margin-left: 0.15em;
+  color: var(--gold);
+  animation: caret-blink 1.1s steps(1) infinite;
+}
+@keyframes caret-blink {
+  50% { opacity: 0; }
+}
+
+/* Pulse tape — fresh entry flash (new log lines arriving over the wire) */
+.pulse-fresh {
+  animation: pulse-fresh 2200ms cubic-bezier(0.2, 0.65, 0.2, 1) both;
+}
+@keyframes pulse-fresh {
+  0%   { background: rgba(77, 124, 106, 0.18); transform: translateX(-6px); opacity: 0; }
+  20%  { opacity: 1; transform: translateX(0); }
+  100% { background: transparent; }
+}
+
+/* Operator dock — soft border-glow when a new pulse event arrives */
+.dock-flash {
+  animation: dock-flash 1900ms ease-out;
+}
+@keyframes dock-flash {
+  0%   { border-color: rgba(77, 124, 106, 0.95); box-shadow: 0 0 0 0 rgba(77, 124, 106, 0.55), 0 18px 60px rgba(0,0,0,0.5); }
+  60%  { border-color: rgba(77, 124, 106, 0.55); box-shadow: 0 0 0 12px rgba(77, 124, 106, 0.0), 0 18px 60px rgba(0,0,0,0.5); }
+  100% { border-color: rgba(201, 151, 31, 0.4);  box-shadow: 0 18px 60px rgba(0,0,0,0.5); }
+}
+
+/* Glass panel — translucent midnight card with subtle inner rule */
+.panel {
+  background: rgba(19, 23, 48, 0.6);
+  border: 1px solid rgba(201, 151, 31, 0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  position: relative;
+}
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(232,216,154,0.04), transparent 25%);
+}
+
+/* Code-ish block with a faint left rule */
+.codefence {
+  background: rgba(5, 7, 15, 0.7);
+  border: 1px solid rgba(201, 151, 31, 0.18);
+  border-left: 2px solid var(--gold);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8125rem;
+  color: var(--parchment-light);
+  padding: 1rem 1.25rem;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Micro metric tile */
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(201, 151, 31, 0.2);
+  background: rgba(10, 14, 31, 0.55);
+}
+.metric .m-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(241, 232, 208, 0.4);
+}
+.metric .m-value {
+  font-family: var(--font-display), serif;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--gold-bright);
+  font-variant-numeric: tabular-nums;
+}
+.metric .m-unit {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.625rem;
+  color: rgba(241, 232, 208, 0.35);
+}
+
+/* Hover micro-interactions */
+.link-underline {
+  background-image: linear-gradient(var(--gold), var(--gold));
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  transition: background-size 500ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+/* Roman numeral counter */
+.roman-counter {
+  counter-reset: sections;
+}
+.roman-counter > * {
+  counter-increment: sections;
+}
+.roman::before {
+  content: counter(sections, upper-roman) ".";
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  margin-right: 0.5em;
+  font-variant-numeric: tabular-nums;
 }
